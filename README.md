@@ -167,21 +167,21 @@ INA236.write_alert_limit();
 The `print_alert_limit` function enables reading from the alert register of the INA236 and printed to serial output.
 ```python
 # Read from the alert register of the INA236.
-INA236.print_alert_limit();
+INA236.print_alert_limit(&Serial);
 ```
 
 ## Read the manufacturer ID
 The `print_manufacturer_ID` function enables the manufacturer ID of the INA236 to be read and printed to serial output.
 ```python
 # Read from the manufacturer ID register of the INA236.
-INA236.print_manufacturer_ID();
+INA236.print_manufacturer_ID(&Serial);
 ```
 
 ## Read the device ID
 The `print_device_ID` function enables the device ID of the INA236 to be read and printed to serial output.
 ```python
 # Read from the device ID register of the INA236.
-INA236.print_device_ID();
+INA236.print_device_ID(&Serial);
 ```
 
 ## Supported targets

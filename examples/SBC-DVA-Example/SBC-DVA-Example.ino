@@ -14,9 +14,9 @@ void setup() {
   INA236.calibrate_ina236();
   INA236.mask_enable(1);
   INA236.write_alert_limit();
-  INA236.print_alert_limit();
-  INA236.print_manufacturer_ID();
-  INA236.print_device_ID();
+  INA236.print_alert_limit(&Serial);
+  INA236.print_manufacturer_ID(&Serial);
+  INA236.print_device_ID(&Serial);
   delay(5000);  // Sleep for 5 seconds
   Serial.println("start");
 }
