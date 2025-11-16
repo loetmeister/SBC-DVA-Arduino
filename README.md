@@ -30,45 +30,46 @@ The `init_ina236` function allows to set up the INA236 either with default value
 # Second parameter
 # Change Vshct of the INA236.
 # Choose between 8 different conversion times for the shunt voltage measurment
-# 1. 140us
-# 2. 204us
-# 3. 332us
-# 4. 588us
-# 5. 1100us
-# 6. 2116us
-# 7. 4156us
-# 8. 8244us
+# 0. 140us
+# 1. 204us
+# 2. 332us
+# 3. 588us
+# 4. 1100us
+# 5. 2116us
+# 6. 4156us
+# 7. 8244us
 # Default initialization with '1100us'
 # Third parameter
 # Change Vbusct of the INA236.
 # Choose between 8 different conversion times for the shunt voltage measurment
-# 1. 140us
-# 2. 204us
-# 3. 332us
-# 4. 588us
-# 5. 1100us
-# 6. 2116us
-# 7. 4156us
-# 8. 8244us
+# 0. 140us
+# 1. 204us
+# 2. 332us
+# 3. 588us
+# 4. 1100us
+# 5. 2116us
+# 6. 4156us
+# 7. 8244us
 # Default initialization with '1100us'
 # Fourth parameter
 # Change Avg of the INA236.
 # Choose between 8 different values to define the amount that is to be averaged
-# 1. 1
-# 2. 4
-# 3. 16
-# 4. 64
-# 5. 128
-# 6. 256
-# 7. 512
-# 8. 1024
+# 0. 1
+# 1. 4
+# 2. 16
+# 3. 64
+# 4. 128
+# 5. 256
+# 6. 512
+# 7. 1024
 # Default initialization with '1'
 # Fifth parameter
 # Change ADCRange of the INA236.
 # Choose between 2 different values that are to be used for the internal calculations
-# 1. ±81.92mV
-# 2. ±20.48mV
+# 0. ±81.92mV
+# 1. ±20.48mV
 # Default initialization with '±81.92mV'
+
 # Sixth parameter
 # Change Address of the INA236.
 # Choose between 4 different values which define the I2C Adress that is to be used for the communication
@@ -135,16 +136,16 @@ The `mask_enable` function allows to choose between 10 different options in the 
 ```python
 # Choose a option in the alert register of the INA236.
 # Choose between 10 different options to define the part of the register that is to be used
-# 1. SOL (Shunt Over-limit)
-# 2. SUL (Shunt Under-limit)
-# 3. BOL (Bus Over-limit)
-# 4. BUL (Bus Under-limit)
-# 5. POL (Power Over-limit)
-# 6. CNVR (Conversion Ready)
-# 7. MemError
-# 8. AFF (Alert Function Flag)
-# 9. CVRF (Conversion Ready Flag)
-# 10. OVF (Math Over-flow)
+# 0. SOL (Shunt Over-limit)
+# 1. SUL (Shunt Under-limit)
+# 2. BOL (Bus Over-limit)
+# 3. BUL (Bus Under-limit)
+# 4. POL (Power Over-limit)
+# 5. CNVR (Conversion Ready)
+# 6. MemError
+# 7. AFF (Alert Function Flag)
+# 8. CVRF (Conversion Ready Flag)
+# 9. OVF (Math Over-flow)
 # Default initialization with '1'
 INA236.mask_enable(1);
 ```
@@ -163,24 +164,24 @@ INA236.write_alert_limit();
 ```
 
 ## Read from the alert register
-The `read_alert_limit` function enables reading from the alert register of the INA236.
+The `print_alert_limit` function enables reading from the alert register of the INA236 and printed to serial output.
 ```python
 # Read from the alert register of the INA236.
-INA236.read_alert_limit();
+INA236.print_alert_limit();
 ```
 
 ## Read the manufacturer ID
-The `manufacturer_ID` function enables the manufacturer ID of the INA236 to be read out.
+The `print_manufacturer_ID` function enables the manufacturer ID of the INA236 to be read and printed to serial output.
 ```python
 # Read from the manufacturer ID register of the INA236.
-INA236.manufacturer_ID();
+INA236.print_manufacturer_ID();
 ```
 
 ## Read the device ID
-The `device_ID` function enables the device ID of the INA236 to be read.
+The `print_device_ID` function enables the device ID of the INA236 to be read and printed to serial output.
 ```python
 # Read from the device ID register of the INA236.
-INA236.device_ID();
+INA236.print_device_ID();
 ```
 
 ## Supported targets

@@ -9,6 +9,8 @@
 #ifndef sbcdva
 #define sbcdva
 
+static const int READING_INVALID = -1024;
+
 // Address variables ina236A
 const byte GND_A = 0x40;
 const byte VS_A = 0x41;
@@ -39,7 +41,7 @@ const int RST = 0x8000;
 // Range of the ADC
 const int ADCRANGE_1 = 0x0000;
 const int ADCRANGE_2 = 0x1000;
-
+ 
 // ADC values to be averaged
 const int AVG_1 = 0x0000;
 const int AVG_2 = 0x0200;
@@ -84,42 +86,47 @@ const int MODE_8 = 0x0007;
 #include <Wire.h>
 #include <math.h>
 
+
 class SBCDVA {
 public:
-  SBCDVA(uint8_t address);
-  void init_ina236(byte address, int mode, int vshct, int vbusct, int avg, int adcrange);
-  void reset_ina236(byte address);
+  SBCDVA(uint8_t _address, TwoWire* _wire = &Wire);
+  void init_ina236(int mode, int vshct, int vbusct, int avg, int adcrange, uint8_t _address = 0x0);
+  void reset_ina236(uint8_t _address);
   void calibrate_ina236();
   float read_current();
   float read_power();
   float read_shunt_voltage();
   float read_bus_voltage();
+  int read_device_ID();
   void mask_enable(byte val = 1);
   void write_alert_limit(int val = 0x294);
-  void read_alert_limit();
-  void manufacturer_ID();
-  void device_ID();
+  void print_alert_limit(Stream* serial = NULL);
+  void print_manufacturer_ID(Stream* serial = NULL);
+  void print_device_ID(Stream* serial = NULL);
   float Current_lsb;
   float Lsb;
-  byte Address;
+  uint8_t Address;
   int Mode;
   int Vshct;
   int Vbusct;
   int Avg;
   int Adcrange;
-  byte temp[2];
+  
 private:
   void _write_register(byte reg, int val);
   int _read_register(byte reg);
-  int _ADDRESS_A[4] = { GND_A, VS_A, SDA_A, SCL_A };
-  int _ADDRESS_B[4] = { GND_B, VS_B, SDA_B, SCL_B };
-  int _ADCRANGE[2] = { ADCRANGE_1, ADCRANGE_2 };
-  float _LSB[3] = { 0.0000025, 0.000000625, 0.0016 };
-  int _AVG[8] = { AVG_1, AVG_2, AVG_3, AVG_4, AVG_5, AVG_6, AVG_7, AVG_8 };
-  int _VBUSCT[8] = { VBUSCT_1, VBUSCT_2, VBUSCT_3, VBUSCT_4, VBUSCT_5, VBUSCT_6, VBUSCT_7, VBUSCT_8 };
-  int _VSHCT[8] = { VSHCT_1, VSHCT_2, VSHCT_3, VSHCT_4, VSHCT_5, VSHCT_6, VSHCT_7, VSHCT_8 };
-  int _MODE[8] = { MODE_1, MODE_2, MODE_3, MODE_4, MODE_5, MODE_6, MODE_7, MODE_8 };
-  int _MASK_ENABLE[10] = { 0x8000, 0x4000, 0x2000, 0x1000, 0x0800, 0x0400, 0x0020, 0x0010, 0x0008, 0x0004 };
+  TwoWire* wire;
+  static constexpr int _ADDRESS_A[4] = { GND_A, VS_A, SDA_A, SCL_A };
+  static constexpr int _ADDRESS_B[4] = { GND_B, VS_B, SDA_B, SCL_B };
+  static constexpr int _ADCRANGE[2] = { ADCRANGE_1, ADCRANGE_2 };
+  static constexpr float _LSB[3] = { 0.0000025, 0.000000625, 0.0016 };
+  static constexpr int _AVG[8] = { AVG_1, AVG_2, AVG_3, AVG_4, AVG_5, AVG_6, AVG_7, AVG_8 };
+  static constexpr int _VBUSCT[8] = { VBUSCT_1, VBUSCT_2, VBUSCT_3, VBUSCT_4, VBUSCT_5, VBUSCT_6, VBUSCT_7, VBUSCT_8 };
+  static constexpr int _VSHCT[8] = { VSHCT_1, VSHCT_2, VSHCT_3, VSHCT_4, VSHCT_5, VSHCT_6, VSHCT_7, VSHCT_8 };
+  static constexpr int _MODE[8] = { MODE_1, MODE_2, MODE_3, MODE_4, MODE_5, MODE_6, MODE_7, MODE_8 };
+  static constexpr unsigned int _MASK_ENABLE[10] = { 0x8000, 0x4000, 0x2000, 0x1000, 0x0800, 0x0400, 0x0020, 0x0010, 0x0008, 0x0004 };
+  
+  static const int BUS_READ_ERROR = 0;//0x8000;
 };
 
 #endif
