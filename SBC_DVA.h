@@ -100,9 +100,9 @@ public:
   int read_device_ID();
   void mask_enable(byte val = 1);
   void write_alert_limit(int val = 0x294);
-  void print_alert_limit(Stream* serial = NULL);
-  void print_manufacturer_ID(Stream* serial = NULL);
-  void print_device_ID(Stream* serial = NULL);
+  void print_alert_limit(Stream* serial = &Serial);
+  void print_manufacturer_ID(Stream* serial = &Serial);
+  void print_device_ID(Stream* serial = &Serial);
   float Current_lsb;
   float Lsb;
   uint8_t Address;
